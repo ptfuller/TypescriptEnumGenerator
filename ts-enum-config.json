@@ -1,0 +1,12 @@
+{
+  "connectionString": "mssql://<user>:<password>@<server>/<database>?encrypt=true",
+  "enumConfig": [
+    {
+      "table": "Attribute",
+      "enumCategoryColumn": "CategoryName",
+      "enumNameColumn": "AttributeName",
+      "enumValueColumn": "Id",
+      "outputFile": "AttributeEnum.ts"
+    }
+  ]
+}

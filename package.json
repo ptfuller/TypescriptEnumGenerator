@@ -1,0 +1,27 @@
+{
+  "name": "typescript-enum-generator",
+  "version": "1.0.0",
+  "description": "Generate TypeScript enums from mssql db tables",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel index.js -d dist && chmod +x dist/index.js",
+    "start": "node dist/index.js"
+  },
+  "bin": {
+    "ts-enum": "./dist/index.js"
+  },
+  "author": "Peter Fuller",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "mssql": "^6.2.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
