@@ -1,12 +1,13 @@
 {
   "name": "typescript-enum-generator",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Generate TypeScript enums from mssql db tables",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel index.js -d dist && chmod +x dist/index.js",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "postpublish": "npm link"
   },
   "bin": {
     "ts-enum": "./dist/index.js"

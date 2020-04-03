@@ -83,7 +83,7 @@ const buildEnum = (enumToBuild) => {
 const writeEnum = (str, config) => {
   const writeTo = path.join(process.cwd(), config.outputFile);
   fs.writeFile(writeTo, str, null, cb => {
-    console.log(cb);
+    
   });
 }
 
