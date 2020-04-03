@@ -30,7 +30,7 @@ This has been useful for querying and filtering results from a GraphQL API
 ---
 ## Getting Started
 
-### installation
+### Installation
 ```
 npm install typescript-enum-generator
 ```
