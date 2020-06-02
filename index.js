@@ -59,7 +59,11 @@ const unique = (value, index, self) => {
 }
 
 const cleanName = (name) => {
-  return name.replace(/\W/g, '');
+  const n = name.replace(/\W/g, '');
+  if (n.match(/^\d/)) {
+    return `_${n}`;
+  }
+  return n;
 }
 
 const cleanValue = (value) => {
@@ -73,7 +77,7 @@ const buildEnum = (enumToBuild) => {
   categories.forEach(c => {
     let valuesInCategory = enumToBuild.filter(x => x.Category === c);
     let lines = valuesInCategory.map((v, idx) => `${cleanName(v.Name)} = ${cleanValue(v.Value)}${idx < valuesInCategory.length - 1 ? ',' : ''}`);
-    let str = `export enum ${c} {\n  ${lines.join('\n  ')}\n}`;
+    let str = `export enum ${cleanName(c)} {\n  ${lines.join('\n  ')}\n}`;
     enums.push(str);
   });
   
