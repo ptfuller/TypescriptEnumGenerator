@@ -25,12 +25,15 @@ const readTable = async (config) => {
     for (let i = 0; i < config.enumConfig.length; i++) {
       const enumConfig = config.enumConfig[i];
 
+      const where = enumConfig.where ? `where ${enumConfig.where}` : '';
+
       const result = await sql.query(`
         select
           ${enumConfig.enumValueColumn} as Value, 
           ${enumConfig.enumCategoryColumn} as Category, 
           ${enumConfig.enumNameColumn} as Name 
-        from ${enumConfig.table}
+        from ${enumConfig.table} 
+        ${where} 
         order by ${enumConfig.enumCategoryColumn}`);
 
       enumsToBuild.push(result.recordset);
