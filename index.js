@@ -18,7 +18,7 @@ const readConfig = () => {
 
 const readTable = async (config) => {
   const columns = config.tableConfig.includeColumns.join(',');
-  const sqlString = `select ${columns} from ${config.tableConfig.table}`;
+  const sqlString = `select ${columns} from ${config.tableConfig.table} ${config.tableConfig.where || ''}`;
   await sql.connect(config.connectionString);
   const result = await sql.query(sqlString);
   return result.recordset;

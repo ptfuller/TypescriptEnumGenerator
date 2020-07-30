@@ -12,6 +12,7 @@
   "tableConfig": {
       "table": "Attribute",
       "includeColumns": ["Id", "AttributeName", "CategoryName"],
-      "outputFile": "Attributes.json"
+      "outputFile": "Attributes.json",
+      "where": "IsDeleted = 0"
     }
 }
