@@ -1,6 +1,6 @@
 {
   "name": "typescript-enum-generator",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Generate TypeScript enums from mssql db tables",
   "main": "dist/index.js",
   "scripts": {
