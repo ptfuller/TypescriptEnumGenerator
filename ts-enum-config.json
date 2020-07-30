@@ -8,5 +8,10 @@
       "enumValueColumn": "Id",
       "outputFile": "AttributeEnum.ts"
     }
-  ]
+  ],
+  "tableConfig": {
+      "table": "Attribute",
+      "includeColumns": ["Id", "AttributeName", "CategoryName"],
+      "outputFile": "Attributes.json"
+    }
 }

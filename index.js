@@ -17,6 +17,14 @@ const readConfig = () => {
 }
 
 const readTable = async (config) => {
+  const columns = config.tableConfig.includeColumns.join(',');
+  const sqlString = `select ${columns} from ${config.tableConfig.table}`;
+  await sql.connect(config.connectionString);
+  const result = await sql.query(sqlString);
+  return result.recordset;
+}
+
+const readTableToBuildEnum = async (config) => {
   try {
     const enumsToBuild = [];
 
@@ -83,21 +91,41 @@ const buildEnum = (enumToBuild) => {
     let str = `export enum ${cleanName(c)} {\n  ${lines.join('\n  ')}\n}`;
     enums.push(str);
   });
-  
+
   return enums.join('\n\n');
 }
 
 const writeEnum = (str, config) => {
   const writeTo = path.join(process.cwd(), config.outputFile);
   fs.writeFile(writeTo, str, null, cb => {
-    
+
+  });
+}
+
+const writeTableJson = (config, tableArray) => {
+  return new Promise((res, rej) => {
+    const tableJson = JSON.stringify(tableArray, null, 2);
+    const writeTo = path.join(process.cwd(), config.tableConfig.outputFile);
+
+    fs.writeFile(writeTo, tableJson, null, cb => {
+      if (cb) rej();
+      res();
+    })
   });
 }
 
 const start = async () => {
-  const config = await readConfig();
-  const enumsToBuild = await readTable(config);
-  buildEnums(enumsToBuild, config);
+  try {
+    const config = await readConfig();
+
+    const enumsToBuild = await readTableToBuildEnum(config);
+    buildEnums(enumsToBuild, config);
+
+    const ttb = await readTable(config);
+    await writeTableJson(config, ttb);
+  } catch (err) {
+    console.error('bad things happened', err);
+  }
 }
 
-start();
+start().catch(err => console.error(err));
