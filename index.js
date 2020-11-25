@@ -61,7 +61,12 @@ const readTableToBuildEnum = async (config) => {
 
 const buildEnums = (enumsToBuild, config) => {
   for (let i = 0; i < enumsToBuild.length; i++) {
-    const enumsString = buildEnum(enumsToBuild[i]);
+    let enumsString;
+    if(config.enumFlatKey) {
+      enumsString = buildFlatEnum(enumsToBuild[i], config.enumFlatKey)
+    } else {
+      enumsString = buildEnum(enumsToBuild[i]);
+    }
     const relConfig = config.enumConfig[i];
 
     writeEnum(enumsString, relConfig);
@@ -95,6 +100,12 @@ const buildEnum = (enumToBuild) => {
     enums.push(str);
   });
 
+  return enums.join('\n\n');
+}
+
+const buildFlatEnum = (enumToBuild,flatKey) => {
+  const lines = enumToBuild.map((v, idx) => `${cleanName(v.Name)} = ${cleanValue(v.Value)}${idx < valuesInCategory.length - 1 ? ',' : ''}`);
+  const enums = `export enum ${cleanName(flatKey)} {\n  ${lines.join('\n  ')}\n}`;
   return enums.join('\n\n');
 }
 
